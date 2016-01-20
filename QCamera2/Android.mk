@@ -45,6 +45,9 @@ LOCAL_CFLAGS += -DHAS_MULTIMEDIA_HINTS
 ifeq ($(TARGET_USES_AOSP),true)
 LOCAL_CFLAGS += -DVANILLA_HAL
 endif
+ifeq ($(TARGET_BOARD_PLATFORM),msm8974)
+LOCAL_CFLAGS += -DCAM_MSM8974
+endif
 
 #HAL 1.0 Flags
 LOCAL_CFLAGS += -DDEFAULT_DENOISE_MODE_ON -DHAL3
@@ -101,9 +104,12 @@ LOCAL_C_INCLUDES += \
         hardware/qcom/display/msm8994/libqservice
 LOCAL_SHARED_LIBRARIES := libcamera_client liblog libhardware libutils libcutils libdl
 LOCAL_SHARED_LIBRARIES += libmmcamera_interface libmmjpeg_interface libui libcamera_metadata
-LOCAL_SHARED_LIBRARIES += libqdMetaData libqservice libbinder
+LOCAL_SHARED_LIBRARIES += libqservice libbinder
 ifeq ($(TARGET_TS_MAKEUP),true)
 LOCAL_SHARED_LIBRARIES += libts_face_beautify_hal libts_detected_face_hal
+endif
+ifneq ($(TARGET_BOARD_PLATFORM),msm8974)
+LOCAL_SHARED_LIBRARIES += libqdMetaData
 endif
 
 LOCAL_MODULE_RELATIVE_PATH := hw

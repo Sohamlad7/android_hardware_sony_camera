@@ -33,8 +33,10 @@
 #include <hardware/camera.h>
 #include <utils/Mutex.h>
 #include <utils/List.h>
+#ifndef CAM_MSM8974
 #include <qdMetaData.h>
 #include <utils/Timers.h>
+#endif
 
 extern "C" {
 #include <sys/types.h>
@@ -268,10 +270,12 @@ private:
     camera_request_memory mGetMemory;
     camera_memory_t *mCameraMemory[MM_CAMERA_MAX_NUM_FRAMES];
     int mMinUndequeuedBuffers;
-    enum ColorSpace_t mColorSpace;
     uint8_t mMappableBuffers;
     pthread_mutex_t mLock;
     uint8_t mEnqueuedBuffers;
+#ifndef CAM_MSM8974
+    enum ColorSpace_t mColorSpace;
+#endif
 };
 
 }; // namespace qcamera

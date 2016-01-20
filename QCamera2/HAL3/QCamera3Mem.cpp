@@ -646,6 +646,10 @@ int QCamera3GrallocMemory::registerBuffer(buffer_handle_t *buffer,
     struct ion_fd_data ion_info_fd;
     void *vaddr = NULL;
     int32_t colorSpace = ITU_R_601_FR;
+#ifndef CAM_MSM8974
+    int32_t colorSpace =
+            (type == CAM_STREAM_TYPE_VIDEO) ? ITU_R_709 : ITU_R_601_FR;
+#endif
     int32_t idx = -1;
 
     CDBG(" %s : E ", __FUNCTION__);
@@ -673,7 +677,9 @@ int QCamera3GrallocMemory::registerBuffer(buffer_handle_t *buffer,
     mBufferHandle[idx] = buffer;
     mPrivateHandle[idx] = (struct private_handle_t *)(*mBufferHandle[idx]);
 
+#ifndef CAM_MSM8974
     setMetaData(mPrivateHandle[idx], UPDATE_COLOR_SPACE, &colorSpace);
+#endif
 
     if (main_ion_fd < 0) {
         ALOGE("%s: failed: could not open ion device", __func__);
