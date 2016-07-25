@@ -1,3 +1,5 @@
+ifeq ($(SONY_AOSP), true)
+
 #encoder int test
 OLD_LOCAL_PATH := $(LOCAL_PATH)
 MM_JPEG_TEST_PATH := $(call my-dir)
@@ -75,3 +77,5 @@ LOCAL_SHARED_LIBRARIES := libcutils libdl libmmjpeg_interface
 include $(BUILD_EXECUTABLE)
 
 LOCAL_PATH := $(OLD_LOCAL_PATH)
+
+endif

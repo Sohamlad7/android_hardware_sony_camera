@@ -1,3 +1,5 @@
+ifeq ($(SONY_AOSP), true)
+
 OMX_CORE_PATH := $(call my-dir)
 
 # ------------------------------------------------------------------------------
@@ -25,3 +27,5 @@ LOCAL_SHARED_LIBRARIES := liblog libcutils libdl
 
 LOCAL_32_BIT_ONLY := true
 include $(BUILD_SHARED_LIBRARY)
+
+endif
